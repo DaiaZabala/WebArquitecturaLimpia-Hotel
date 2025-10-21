@@ -1,0 +1,17 @@
+# Dependencias de Node
+/node_modules
+
+# Carpetas de compilación y output de TypeScript
+/dist
+/build
+*.tsbuildinfo
+
+# Logs y Cache
+npm-debug.log*
+yarn-debug.log*
+.npm
+.eslintcache
+
+# Archivos de entorno y configuración local
+.env
+.env.local
