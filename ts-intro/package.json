@@ -15,5 +15,9 @@
     "ts-jest": "^29.4.5",
     "txc": "^0.0.1",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@types/uuid": "^10.0.0",
+    "uuid": "^13.0.0"
   }
 }
