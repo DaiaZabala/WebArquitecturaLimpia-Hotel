@@ -1,13 +1,49 @@
+// tsconfig.json (Raíz del proyecto: ts-intro)
 {
+  // Opciones del compilador: Reglas que TypeScript usará
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "CommonJS",
-    "rootDir": "./src",
-    "outDir": "./dist",
-    "strict": true,
-    "esModuleInterop": true,
+    // 1. Entorno de Ejecución (Node.js)
+    "target": "es2020", 
+    "module": "CommonJS", 
+    "moduleResolution": "node",
+    
+    // 2. Control de Calidad y Tipado Estricto (Crucial para TDD y Arquitectura Limpia)
+    "strict": true, 
     "forceConsistentCasingInFileNames": true,
-    },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    
+    // 3. Interoperabilidad (Para importar librerías JS como Express o Jest)
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    
+    // 4. Salida y Rutas
+    "outDir": "./dist",
+    "rootDir": "./",
+    "sourceMap": true,
+    "allowJs": true,
+    
+    // 5. Módulos y Tipos
+    "lib": ["es2020", "dom"],
+    "types": ["node", "jest"] // Para reconocer types de Node y Jest
+  },
+
+  // Archivos a incluir en la compilación
+  "include": [
+    "./**/*.ts" 
+  ],
+
+  // Archivos a excluir de la compilación
+  "exclude": [
+    "node_modules",
+    "dist",
+    "apps/frontend" // Excluir temporalmente el frontend
+  ],
+  
+  // Referencias de proyecto (Como ya lo tienes)
+  "references": [
+    { "path": "./domain" },
+    { "path": "./apps/backend" }
+  ]
 }

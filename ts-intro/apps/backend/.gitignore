@@ -1,0 +1,10 @@
+# Ignorar dependencias locales
+/node_modules
+
+# Ignorar carpetas de compilación
+/dist
+/build
+
+# Ignorar logs y archivos temporales
+npm-debug.log*
+*.log

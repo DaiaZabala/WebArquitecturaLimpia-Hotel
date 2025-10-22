@@ -3,6 +3,7 @@
 
 # Carpetas de compilación y output de TypeScript
 /dist
+domain/dist/
 /build
 *.tsbuildinfo
 
