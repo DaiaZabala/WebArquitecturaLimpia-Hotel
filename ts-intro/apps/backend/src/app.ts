@@ -2,9 +2,9 @@
 
 import express from 'express'; // Importa la librería Express
 import cors from 'cors';
-import habitacionController from './controllers/habitacion.controller';
+import habitacionController from './controllers/habitacion.controller.js';
+import userController from './controllers/user.controller.js';
 
-// 💡 SOLUCIÓN: Declara y asigna la variable 'app' aquí.
 const app = express(); 
 const PORT = process.env.PORT || 3000;
 
@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json()); 
 app.use('/api/habitaciones', habitacionController);
-
+app.use('/api/users', userController);
 
 app.listen(PORT, () => {
   console.log(`🚀 Servidor Express escuchando en http://localhost:${PORT}`);

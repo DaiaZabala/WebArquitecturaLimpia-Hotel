@@ -11,7 +11,10 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true
+    
   },
+
   "include": ["src/**/*"],
+  "@domain/*": ["../../domain/src/*"],
   "exclude": ["node_modules", "dist"]
 }

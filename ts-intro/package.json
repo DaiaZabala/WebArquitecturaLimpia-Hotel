@@ -10,7 +10,9 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
     "@types/jest": "^30.0.0",
+    "bcrypt": "^6.0.0",
     "jest": "^30.2.0",
     "ts-jest": "^29.4.5",
     "txc": "^0.0.1",

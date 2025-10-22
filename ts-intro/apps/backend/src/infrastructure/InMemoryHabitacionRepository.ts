@@ -1,7 +1,7 @@
 // apps/backend/src/infrastructure/InMemoryHabitacionRepository.ts
 
-import { Habitacion, HabitacionData } from '@domain/entities/Habitacion';
-import { HabitacionRepository } from '@domain/services/HabitacionRepository';
+import { Habitacion, HabitacionData } from '../../../../domain/src/entities/Habitacion';
+import { HabitacionRepository } from '../../../../domain/src/services/HabitacionRepository';
 import { v4 as uuid } from 'uuid'; 
 
 // 💡 Simula la "Base de Datos"
