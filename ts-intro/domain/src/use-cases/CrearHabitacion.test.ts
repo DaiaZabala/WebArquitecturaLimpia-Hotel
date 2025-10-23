@@ -11,7 +11,7 @@ const mockRepository: HabitacionRepository = {
         new Habitacion('mock-uuid-123', data.numero, data.idTipo, data.precioPorNoche)
     ),
     // Simula la búsqueda
-    findByNumber: jest.fn(async (numero) => null), 
+    findByNumber: jest.fn(async (_numero) => null), 
     findAll: jest.fn(async () => []),
     findById: jest.fn(async () => null),
 };

@@ -1,0 +1,48 @@
+# 🏨 Proyecto Web Hotel - Sistema de Reservas (Arquitectura Limpia)
+
+Este repositorio contiene la implementación del *backend* para un sistema de gestión y reservas de hotel. El proyecto fue desarrollado bajo los principios de **Arquitectura Limpia** (Clean Architecture) y **TDD** (Test-Driven Development) como parte de la formación en la Academia ForIT.
+
+---
+
+## 🚀 Tecnologías Utilizadas
+
+* **Lenguaje:** TypeScript
+* **Entorno:** Node.js / Express.js
+* **Testing:** Jest (para TDD)
+* **Seguridad:** BCrypt (para cifrado de contraseñas)
+* **Base de Datos (Mock):** Repositorios en Memoria (listos para ser reemplazados por una DB real).
+
+---
+
+## 🏗️ Estructura del Proyecto (Monorepo)
+
+El diseño separa estrictamente la lógica de negocio de la tecnología de soporte (principio de Inversión de Dependencia).
+mi-proyecto/ ├── domain/ # CAPA DE DOMINIO (Lógica de Negocio Probada con TDD) │ ├── src/entities/ # Clases de negocio (Habitacion, User, etc.) │ ├── src/use-cases/ # Acciones del sistema (RegistrarUsuario, CrearHabitacion). │ └── src/services/ # Contratos (Interfaces) de Repositorio y Servicios. └── apps/ └── backend/ # CAPA DE INFRAESTRUCTURA (API REST con Express) ├── src/controllers/ # Puntos de entrada HTTP (inyectan Casos de Uso). └── src/infrastructure/ # Implementación de Repositorios (InMemory).
+
+
+---
+
+## ✅ Funcionalidades Implementadas
+
+Las siguientes funcionalidades clave han sido implementadas y validadas con pruebas unitarias exhaustivas:
+
+| Módulo | Funcionalidad | Método | Endpoint | Regla de Negocio Verificada |
+| :--- | :--- | :--- | :--- | :--- |
+| **Habitaciones** | Crear Habitación | `POST` | `/api/habitaciones` | No permite números de habitación duplicados (400). |
+| **Habitaciones** | Listar Habitaciones | `GET` | `/api/habitaciones` | Retorna la lista actual de habitaciones. |
+| **Usuarios** | Registrar Usuario | `POST` | `/api/users/register` | Cifra la contraseña con BCrypt y no permite emails duplicados (400). |
+
+---
+
+## ⚙️ Configuración y Uso
+
+### 1. Instalación e Inicio
+
+Asegúrate de estar en la carpeta **`apps/backend`** para iniciar el servidor de la API:
+
+```bash
+# 1. Instalar todas las dependencias (si no lo has hecho)
+npm install
+
+# 2. Iniciar el servidor (Requiere ts-node)
+npm start

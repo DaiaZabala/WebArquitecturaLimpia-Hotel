@@ -12,8 +12,10 @@
   "devDependencies": {
     "@types/bcrypt": "^6.0.0",
     "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "bcrypt": "^6.0.0",
     "jest": "^30.2.0",
+    "jsonwebtoken": "^9.0.2",
     "ts-jest": "^29.4.5",
     "txc": "^0.0.1",
     "typescript": "^5.9.3"
