@@ -2,8 +2,9 @@
 
 import express from 'express'; // Importa la librería Express
 import cors from 'cors';
-import habitacionController from './controllers/habitacion.controller.js';
-import userController from './controllers/user.controller.js';
+import habitacionController from './controllers/habitacion.controller';
+import userController from './controllers/user.controller';
+
 
 const app = express(); 
 const PORT = process.env.PORT || 3000;
