@@ -16,3 +16,4 @@ yarn-debug.log*
 # Archivos de entorno y configuración local
 .env
 .env.local
+notas
