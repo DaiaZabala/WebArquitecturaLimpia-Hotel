@@ -8,3 +8,4 @@
 # Ignorar logs y archivos temporales
 npm-debug.log*
 *.log
+.env

@@ -4,7 +4,9 @@ import express from 'express'; // Importa la librería Express
 import cors from 'cors';
 import habitacionController from './controllers/habitacion.controller';
 import userController from './controllers/user.controller';
+import * as dotenv from 'dotenv';
 
+dotenv.config();
 
 const app = express(); 
 const PORT = process.env.PORT || 3000;

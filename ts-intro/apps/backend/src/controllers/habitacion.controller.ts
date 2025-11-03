@@ -3,6 +3,7 @@
 import { Router, Request, Response } from 'express';
 import { CrearHabitacion } from '../../../../domain/src/use-cases/CrearHabitacionUseCase';
 import { InMemoryHabitacionRepository } from '../infrastructure/InMemoryHabitacionRepository';
+import { authMiddleware, adminAuthMiddleware } from '../middlewares/auth.middleware';
 
 type HabitacionRepository = any;
 
@@ -10,7 +11,7 @@ const router = Router();
 const habitacionRepository = new InMemoryHabitacionRepository();
 
 //Crear una Habitación (POST /api/habitaciones)
-router.post('/', async (req: Request, res: Response) => {
+router.post('/', authMiddleware, async (req: Request, res: Response) => {
   try {
     const data = req.body;
     const crearHabitacion = new CrearHabitacion(habitacionRepository as unknown as HabitacionRepository);
