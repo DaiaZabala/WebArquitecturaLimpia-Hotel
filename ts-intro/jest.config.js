@@ -1,31 +1,34 @@
-const { createDefaultPreset } = require("ts-jest");
-
-const tsJestTransformCfg = createDefaultPreset().transform;
-
+/** @type {import('ts-jest').JestConfigWithTsJest} */
 module.exports = {
-  // Configuración base para usar TypeScript con Jest
   preset: 'ts-jest',
   testEnvironment: 'node',
 
-  // 1. SOLUCIÓN para evitar el error de 'leaking' (cierre forzado)
-  forceExit: true, 
+  // Asegúrate de que no ignores la transformación de uuid (ESM)
+  transformIgnorePatterns: ['node_modules/(?!(uuid)/)'], // Permite que `uuid` sea transformado
 
-  // 2. SOLUCIÓN para que Jest solo busque archivos .ts y .tsx en las carpetas correctas.
-  // Esto evita que ejecute los archivos .js compilados en 'dist'.
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
+      useESM: true,  // Permitir el uso de módulos ESM en TypeScript
+      tsconfig: 'tsconfig.json',  // Asegúrate de que el path del tsconfig sea correcto
+    }],
+  },
+
+  extensionsToTreatAsEsm: ['.ts'], // Permite a Jest tratar los archivos TS como ESM
+
+  forceExit: true, // Forzar que Jest termine cuando haya procesos pendientes
+
   testMatch: [
-    "**/domain/src/**/*.test.ts",
-    "**/domain/src/**/*.spec.ts"
+    '**/domain/src/**/*.test.ts',
+    '**/domain/src/**/*.spec.ts',
   ],
 
-  // 3. SOLUCIÓN para excluir archivos o carpetas innecesarias de la búsqueda.
   testPathIgnorePatterns: [
-    "/node_modules/",
-    "/dist/",
-    "/apps/backend/dist/"
+    '/node_modules/',
+    '/dist/',
+    '/apps/backend/dist/',
   ],
 
-  // 4. Mapeo para que las importaciones de TS funcionen dentro de Jest (el alias @domain).
   moduleNameMapper: {
-    "^@domain/(.*)$": "<rootDir>/domain/src/$1"
-  }
+    '^@domain/(.*)$': '<rootDir>/domain/src/$1', // Mapea los alias de módulos
+  },
 };
