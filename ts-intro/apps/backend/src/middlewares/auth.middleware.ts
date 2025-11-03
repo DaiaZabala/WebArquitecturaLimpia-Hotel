@@ -2,12 +2,16 @@
 
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
+// Importar el tipo Secret para la clave JWT
+import { Secret } from 'jsonwebtoken'; 
 
-// 💡 Nota: Usar la misma clave secreta que en JWTAuthService.ts
-const JWT_SECRET = 'clave_secreta'; 
+// 💡 SOLUCIÓN DEL CONFLICTO DE CLAVE: Usamos la clave fija que decidimos.
+const JWT_SECRET: Secret = 'clave_secreta'; 
+
 
 // Extender la interfaz Request de Express para añadir datos del usuario autenticado
-interface AuthRequest extends Request {
+// Esto resuelve el error TS2339 (Propiedad 'userId' no existe) en los controllers.
+export interface AuthRequest extends Request {
     userId?: string;
     userRole?: string;
 }
@@ -17,8 +21,8 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
     // 1. Obtener el encabezado de autorización
     const authHeader = req.header('Authorization');
 
-    if (!authHeader) {
-        // Si no hay token, se deniega el acceso
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+        // Si no hay token o no tiene el formato 'Bearer ', denegar acceso.
         return res.status(401).json({ message: 'Acceso denegado. Token no proporcionado.' });
     }
 
@@ -26,7 +30,8 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
     const token = authHeader.replace('Bearer ', '');
 
     try {
-        // 2. Verificar y decodificar el token
+        // 2. Verificar y decodificar el token usando la clave secreta
+        // Utilizamos el tipo Secret que importamos arriba.
         const decoded = jwt.verify(token, JWT_SECRET) as { id: string; role: string };
 
         // 3. Adjuntar datos del usuario a la solicitud (para que el controlador los use)
@@ -43,7 +48,7 @@ export const authMiddleware = (req: AuthRequest, res: Response, next: NextFuncti
 
 // Middleware para verificar si el usuario es ADMINISTRADOR (Ejemplo de política de acceso)
 export const adminAuthMiddleware = (req: AuthRequest, res: Response, next: NextFunction) => {
-    // Primero, nos aseguramos de que el token sea válido
+    // Primero, nos aseguramos de que la verificación del token pase
     authMiddleware(req, res, () => {
         // Luego, verificamos el rol
         if (req.userRole === 'admin') {
