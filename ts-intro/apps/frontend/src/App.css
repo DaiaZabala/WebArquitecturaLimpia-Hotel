@@ -40,3 +40,10 @@
 .read-the-docs {
   color: #888;
 }
+
+/* apps/frontend/src/App.css (Añadir al final) */
+
+.app-container {
+    text-align: center;
+    padding-top: 50px;
+}
