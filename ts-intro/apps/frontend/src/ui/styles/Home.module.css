@@ -1,0 +1,65 @@
+/* apps/frontend/src/ui/styles/Home.module.css*/
+
+.mainLayout {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.promotionsPlaceholder {
+    height: 200px;
+    background-color: #ecf0f1; /* Gris claro */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-weight: 500;
+    color: #34495e;
+}
+
+.topSection { /* Nuevo contenedor para Carrusel + Reserva */
+    display: flex;
+    gap: 30px; /* Espacio entre el carrusel y la reserva */
+    margin-bottom: 30px; /* Espacio entre la sección superior y las promociones */
+}
+
+.carouselContainerWrapper { /* Contenedor para el carrusel */
+    flex-grow: 1; /* Ocupa el espacio restante */
+    width: 70%; /* Aproximadamente el 70% del espacio en la fila */
+}
+
+.sidebarReservation { /* Contenedor para el sidebar de reserva */
+    width: 30%; /* Aproximadamente el 30% del espacio en la fila */
+    min-width: 300px; /* Asegura un tamaño mínimo */
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    height: fit-content; /* Se ajusta al contenido */
+}
+
+.promotionsSection { /* Sección para las promociones */
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+.promotionsSection h2 {
+    color: #2c3e50;
+    font-size: 2em;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+/* Reutilizamos el estilo del placeholder del carrusel si no tienes el componente aún */
+.carouselPlaceholder {
+    height: 350px;
+    background-color: #bdc3c7;
+    text-align: center;
+    line-height: 350px;
+    font-size: 2.2em;
+    color: #34495e;
+    border-radius: 8px;
+    font-weight: 600;
+}

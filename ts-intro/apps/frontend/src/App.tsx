@@ -1,14 +1,14 @@
 // apps/frontend/src/App.tsx (CORRECCIÓN FINAL)
 
-import { LoginComponent } from '../src/ui/Logins';
-import './App.css'; // Asegúrate de que esta importación esté
+import { HomePage } from '../src/ui/Home'; // 💡 Importamos la página principal
+import './App.css'; 
 
 function App() {
   return (
-    // 💡 SOLUCIÓN: Reemplazamos style={...} por className={styles de App.css}
+    // Renderizamos el componente que ensambla Header, Carrusel y Sidebar
     <div className="app-container"> 
-      <h1>Sistema de Reservas del Hotel</h1>
-      <LoginComponent /> 
+      {/* <h1>Sistema de Reservas del Hotel</h1> <-- Este título ya está en HomePage */}
+      <HomePage /> 
     </div>
   );
 }

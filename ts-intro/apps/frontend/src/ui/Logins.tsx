@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import type { FormEvent, FC } from 'react';
-import styles from '../ui/Login.module.css'; 
+import styles from '../ui/styles/Login.module.css'; 
 
 // Importar lógica de dominio
 import { createLoginUserUseCase } from '../use-cases/LoginUser'; 

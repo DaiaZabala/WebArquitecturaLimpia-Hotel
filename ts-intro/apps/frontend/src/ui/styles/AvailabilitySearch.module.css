@@ -1,0 +1,61 @@
+/* apps/frontend/src/ui/styles/AvailabilitySearch.module.css */
+
+.container {
+    padding: 25px; /* Más padding */
+    border: none; /* Quitamos el borde, la sombra del Home.module.css lo maneja */
+    background-color: transparent; /* Fondo transparente */
+    border-radius: 8px;
+}
+
+.container h4 {
+    color: #2c3e50;
+    font-size: 1.4em;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.inputGroup {
+    margin-bottom: 20px; /* Más espacio */
+}
+
+.inputGroup label {
+    display: block;
+    margin-bottom: 8px;
+    color: #34495e;
+    font-weight: 500;
+}
+
+.inputField {
+    width: calc(100% - 20px); /* Ajuste para el padding interno del input */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+    box-sizing: border-box; /* Incluye padding y border en el width */
+}
+
+.errorText {
+    color: #e74c3c; /* Rojo de error */
+    font-size: 0.9em;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.searchButton {
+    padding: 12px 25px; /* Más padding */
+    background-color: #28a745; /* Verde más vibrante */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.searchButton:hover {
+    background-color: #229940; /* Verde más oscuro al hover */
+}
