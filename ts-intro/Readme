@@ -28,9 +28,12 @@ Las siguientes funcionalidades clave han sido implementadas y validadas con prue
 
 | Módulo | Funcionalidad | Método | Endpoint | Regla de Negocio Verificada |
 | :--- | :--- | :--- | :--- | :--- |
-| **Habitaciones** | Crear Habitación | `POST` | `/api/habitaciones` | No permite números de habitación duplicados (400). |
+| **Habitaciones** | Crear Habitación | `POST` | `/api/habitaciones` | **Requiere Token.** No permite números duplicados (400). |
 | **Habitaciones** | Listar Habitaciones | `GET` | `/api/habitaciones` | Retorna la lista actual de habitaciones. |
 | **Usuarios** | Registrar Usuario | `POST` | `/api/users/register` | Cifra la contraseña con BCrypt y no permite emails duplicados (400). |
+| **Usuarios** | Iniciar Sesión | `POST` | `/api/users/login` | Verifica credenciales y devuelve un Token JWT. |
+| **Reservas** | Crear Reserva | `POST` | `/api/reservas` | **Requiere Token.** Verifica superposición de fechas. |
+| **Reservas** | Listar Reservas | `GET` | `/api/reservas` | **Requiere Token.** Retorna las reservas del sistema. |
 
 ---
 
