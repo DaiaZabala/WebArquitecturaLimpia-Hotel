@@ -17,3 +17,11 @@ yarn-debug.log*
 .env
 .env.local
 notas
+# Documentos de Microsoft Word
+*.doc
+*.docx
+*.docm
+*.dotx
+
+# Archivos temporales de Word (los que empiezan con ~$)
+~$*.doc*
