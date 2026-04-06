@@ -37,6 +37,16 @@ Las siguientes funcionalidades clave han sido implementadas y validadas con prue
 
 ---
 
+## 🚧 Próximos Pasos (To-Do / Faltantes)
+
+- [ ] **Persistencia de Datos Real:** Reemplazar los repositorios en memoria (`InMemory`) por una conexión a una base de datos real (ej. MongoDB con Mongoose o PostgreSQL con Prisma).
+- [ ] **CRUD Completo:** Implementar endpoints faltantes para buscar por ID (`GET /:id`), actualizar (`PUT`) y eliminar (`DELETE`) tanto Habitaciones como Reservas.
+- [ ] **Validación de Datos:** Integrar una librería de validación (como `Zod` o `Joi`) para asegurar que los datos enviados en los `POST` y `PUT` sean correctos antes de llegar al dominio.
+- [ ] **Integración del Frontend:** Conectar los endpoints de la API con el proyecto cliente inicializado en React + Vite (`apps/frontend`).
+- [ ] **Testing Avanzado:** Ampliar la cobertura de pruebas unitarias (`Jest`) para incluir los nuevos casos de uso de Reservas y el middleware de Autenticación.
+
+---
+
 ## ⚙️ Configuración y Uso
 
 ### 1. Instalación e Inicio

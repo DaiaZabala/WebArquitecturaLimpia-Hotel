@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mini Cliente - API Hotel</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; max-width: 800px; }
+        section { border: 1px solid #ccc; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+        h2 { margin-top: 0; font-size: 18px; }
+        button { padding: 8px 12px; cursor: pointer; background-color: #007bff; color: white; border: none; border-radius: 4px;}
+        button:hover { background-color: #0056b3; }
+        input { margin-bottom: 10px; padding: 8px; width: 250px; display: block; border: 1px solid #ccc; border-radius: 4px; }
+        pre { background: #272822; color: #f8f8f2; padding: 15px; border-radius: 5px; white-space: pre-wrap; min-height: 100px;}
+        .row { display: flex; gap: 10px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+    <h1>🏨 Mini Cliente de Pruebas - API Hotel</h1>
+    <p>Asegúrate de que tu backend esté corriendo en <b>http://localhost:3000</b></p>
+
+    <section>
+        <h2>1. Usuarios (Registro y Login)</h2>
+        <input type="email" id="email" placeholder="Correo electrónico" value="test@test.com">
+        <input type="password" id="password" placeholder="Contraseña" value="123456">
+        <div class="row">
+            <button onclick="register()">Registrar Usuario</button>
+            <button onclick="login()">Iniciar Sesión</button>
+        </div>
+        <p>Estado de sesión: <strong id="tokenDisplay" style="color: red;">No autenticado</strong></p>
+    </section>
+
+    <section>
+        <h2>2. Habitaciones</h2>
+        <div class="row">
+            <input type="text" id="habNumero" placeholder="Número (Ej: 101)" value="101">
+            <input type="text" id="habTipo" placeholder="ID Tipo (Ej: doble-estandar-id)" value="doble-estandar-id">
+            <input type="number" id="habPrecio" placeholder="Precio (Ej: 100)" value="100">
+        </div>
+        <div class="row">
+            <button onclick="crearHabitacion()">Crear Habitación</button>
+            <button onclick="getHabitaciones()">Listar Habitaciones</button>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Reservas (Requiere Token)</h2>
+        <input type="text" id="habitacionId" placeholder="ID de la Habitación (Ej: H-101)">
+        <div class="row">
+            <input type="date" id="fechaInicio" title="Fecha Inicio">
+            <input type="date" id="fechaFin" title="Fecha Fin">
+        </div>
+        <button onclick="crearReserva()">Crear Reserva</button>
+    </section>
+
+    <h2>💻 Consola de Respuestas:</h2>
+    <pre id="console">Aquí verás la respuesta de la API...</pre>
+
+    <script>
+        const API_URL = 'http://localhost:3000/api';
+        let token = ''; // Aquí guardaremos el token JWT
+
+        // Función para mostrar la respuesta en pantalla
+        function log(data) {
+            // Usamos un 'replacer' para interceptar y ocultar cualquier campo 'token' en toda la app
+            document.getElementById('console').textContent = JSON.stringify(data, (key, value) => {
+                if (key === 'token') return "******** (Oculto por seguridad)";
+                return value;
+            }, 2);
+        }
+
+        async function register() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            try {
+                const res = await fetch(`${API_URL}/users/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                log(await res.json());
+            } catch (e) { log({ error: e.message }); }
+        }
+
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            try {
+                const res = await fetch(`${API_URL}/users/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.json();
+
+                // Si el login es exitoso, guardamos el token automáticamente
+                if (data.token) {
+                    token = data.token;
+                    document.getElementById('tokenDisplay').textContent = "Autenticado ✅ (Listo para hacer reservas)";
+                    document.getElementById('tokenDisplay').style.color = "green";
+                }
+                log(data);
+            } catch (e) { log({ error: e.message }); }
+        }
+
+        async function getHabitaciones() {
+            try {
+                const res = await fetch(`${API_URL}/habitaciones`);
+                log(await res.json());
+            } catch (e) { log({ error: e.message }); }
+        }
+
+        async function crearHabitacion() {
+            const numero = document.getElementById('habNumero').value;
+            const idTipo = document.getElementById('habTipo').value;
+            const precioPorNoche = Number(document.getElementById('habPrecio').value);
+            try {
+                const res = await fetch(`${API_URL}/habitaciones`, {
+                    method: 'POST',
+                    // Enviamos el token por si la ruta de crear habitación está protegida
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ numero, idTipo, precioPorNoche })
+                });
+                const data = await res.json();
+                log(data);
+                
+                // Autocompletar el ID en el formulario de reservas (soporta 'id' o '_id' de MongoDB)
+                if (data.id || data._id) {
+                    document.getElementById('habitacionId').value = data.id || data._id;
+                }
+            } catch (e) { log({ error: e.message }); }
+        }
+
+        async function crearReserva() {
+            const habitacionId = document.getElementById('habitacionId').value;
+            const fechaInicio = document.getElementById('fechaInicio').value;
+            const fechaFin = document.getElementById('fechaFin').value;
+            try {
+                const res = await fetch(`${API_URL}/reservas`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+                    body: JSON.stringify({ habitacionId, fechaInicio, fechaFin })
+                });
+                log(await res.json());
+            } catch (e) { log({ error: e.message }); }
+        }
+    </script>
+</body>
+</html>
